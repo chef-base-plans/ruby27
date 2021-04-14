@@ -22,7 +22,7 @@ control 'core-plans-ruby27-works' do
   full_suite = {
     "bundle" => {
       # Update the command output match for v2.7.3
-      command_output_pattern: /bundle\(1\) -- Ruby Dependency Management/,
+      command_output_pattern: /bundle\(1\)/i,
     },
     "erb" => {
       command_suffix: "--help 2>&1",
