@@ -8,20 +8,21 @@ control 'core-plans-ruby27-works' do
   title 'Ensure ruby27 works as expected'
   desc '
   Verify ruby27 by ensuring that
-  (1) its installation directory exists 
+  (1) its installation directory exists
   (2) it returns the expected version
   '
-  
+
   plan_installation_directory = command("hab pkg path #{plan_origin}/#{plan_name}")
   describe plan_installation_directory do
     its('exit_status') { should eq 0 }
     its('stdout') { should_not be_empty }
   end
-  
+
   plan_pkg_version = plan_installation_directory.stdout.split("/")[5]
   full_suite = {
     "bundle" => {
-      command_output_pattern: /Bundler\s+commands:/,
+      # Update the command output match for v2.7.3
+      command_output_pattern: /bundle\(1\) -- Ruby Dependency Management/,
     },
     "erb" => {
       command_suffix: "--help 2>&1",
